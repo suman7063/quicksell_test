@@ -28,7 +28,6 @@ export const statusData = {
 type StatusKey = keyof typeof statusData;
 
 export const StatusIcon = ({ status }: { status: StatusKey }) => {
-  console.log("dsdsf", status, statusData[status]);
   const Icon = statusData[status];
   return Icon ? (
     <img src={Icon} alt={`${status} icon`} style={{ marginRight: "8px" }} />
@@ -84,7 +83,6 @@ const getRandomColor = (letter: string) => {
 };
 export const UserIcon = ({ userDetails }: { userDetails: any }) => {
   const userName = userDetails?.name?.split(" ");
-  console.log(userName, "userName");
   return (
     <div
       style={{

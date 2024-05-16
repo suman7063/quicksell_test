@@ -106,8 +106,6 @@ const DashBoard = () => {
 
     setModifiedData(modifiedObject);
   }, [selectedFilter, list]);
-
-  console.log(modifiedData, "skskksk");
   return (
     <>
       <header className="header">
