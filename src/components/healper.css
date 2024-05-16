@@ -1,0 +1,14 @@
+.col-header{
+    display: flex;
+    justify-content: space-between;
+    max-width: 80vw;
+    width: 434px;
+    margin: 16px;
+}
+.col-header h2{
+    font-size: 16px;
+    margin: 0px;
+}
+.col-header img{
+    width: 19px;
+}

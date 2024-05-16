@@ -5,16 +5,15 @@ const CustomSelect = ({
   options,
   onSelect,
   type,
+  selectedFilter,
 }: {
   options: any;
   onSelect: any;
   type: string;
+  selectedFilter: any;
 }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedValue, setSelectedValue] = useState("");
-
   const handleOptionClick = (value: string) => {
-    setSelectedValue(value);
     onSelect(value, type); // Call onSelect function with the selected value
     setIsOpen(false); // Close the dropdown
   };
@@ -22,7 +21,7 @@ const CustomSelect = ({
   return (
     <div className="custom-select">
       <div className="selected-option" onClick={() => setIsOpen(!isOpen)}>
-        {selectedValue || "Select..."}
+        {selectedFilter[type] || "Select..."}
         <img src={down} alt="down" />
       </div>
       {isOpen && (

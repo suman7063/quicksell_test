@@ -37,10 +37,7 @@ const Card = ({
         {selectedFilter.grouped !== "byStatus" && (
           <StatusIcon status={modifyStatus} />
         )}
-        <p className="title">
-          {/* {title.length > 80 ? `${title.substring(0, 79)}...` : title} */}
-          {title}
-        </p>
+        <p className="title">{title}</p>
       </div>
       <div className="wrap-title-status">
         {selectedFilter.grouped !== "byPriority" && (

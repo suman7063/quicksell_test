@@ -19,7 +19,7 @@ export const orderingOptions = [
   { value: "title", label: "Title" },
 ];
 export const statusData = {
-  inProgress: inProgress,
+  "In progress": inProgress,
   Todo: toDo,
   Backlog: backLog,
   done: done,
@@ -28,6 +28,7 @@ export const statusData = {
 type StatusKey = keyof typeof statusData;
 
 export const StatusIcon = ({ status }: { status: StatusKey }) => {
+  console.log("dsdsf", status, statusData[status]);
   const Icon = statusData[status];
   return Icon ? (
     <img src={Icon} alt={`${status} icon`} style={{ marginRight: "8px" }} />
@@ -35,42 +36,55 @@ export const StatusIcon = ({ status }: { status: StatusKey }) => {
 };
 
 export const PriorityData = {
-  4: urgent,
-  3: high,
-  2: medium,
-  1: low,
-  0: NoPriority,
+  "4": urgent,
+  "3": high,
+  "2": medium,
+  "1": low,
+  "0": NoPriority,
+};
+export const PriorityDataName = {
+  "4": "Urgent",
+  "3": "High",
+  "2": "Medium",
+  "1": "Low",
+  "0": "No Priority",
 };
 type PriorityKey = keyof typeof PriorityData;
-export const PriorityIcon = ({ priority }: { priority: PriorityKey }) => {
+export const PriorityIcon = ({
+  priority,
+  noBorder,
+}: {
+  priority: PriorityKey;
+  noBorder?: boolean;
+}) => {
   const Icon = PriorityData[priority];
   return Icon ? (
     <div
       style={{
-        border: "1px solid #8080809e",
+        border: noBorder ? "" : "1px solid #8080809e",
         borderRadius: "8px",
         display: "grid",
         placeItems: "center",
         width: "40px",
-        height: "44px",
+        height: noBorder ? "unset" : "44px",
         marginRight: "8px",
       }}
     >
-      <img src={Icon} alt={`${Icon} icon`} style={{ width: "24px" }} />{" "}
+      <img src={Icon} alt={`${Icon} icon`} style={{ width: "19px" }} />{" "}
     </div>
   ) : null;
 };
 
-const getRandomColor = () => {
-  const letters = "0123456789ABCDEF";
-  let color = "#";
-  for (let i = 0; i < 6; i++) {
-    color += letters[Math.floor(Math.random() * 16)];
-  }
-  return color;
+const getRandomColor = (letter: string) => {
+  if (["A", "B", "C", "D", "E"].includes(letter)) return "#3A6EA5";
+  if (["F", "G", "H", "I", "J"].includes(letter)) return "#F49AC2";
+  if (["K", "L", "M", "N", "O"].includes(letter)) return "#88B04B";
+  if (["P", "Q", "R", "S", "T"].includes(letter)) return "#FF6F61";
+  if (["U", "V", "W", "X", "Y", "Z"].includes(letter)) return "#6B5B95";
 };
 export const UserIcon = ({ userDetails }: { userDetails: any }) => {
-  const user_img = userDetails.id.split("-");
+  const userName = userDetails?.name?.split(" ");
+  console.log(userName, "userName");
   return (
     <div
       style={{
@@ -82,8 +96,10 @@ export const UserIcon = ({ userDetails }: { userDetails: any }) => {
         fontSize: "12px",
         justifyContent: "center",
         color: "#fff",
-        backgroundColor: getRandomColor(),
+        backgroundColor: getRandomColor(userName?.[0]?.[0]),
         position: "relative",
+        textTransform: "uppercase",
+        marginRight: "8px",
       }}
     >
       <div
@@ -94,10 +110,11 @@ export const UserIcon = ({ userDetails }: { userDetails: any }) => {
           position: "absolute",
           left: "22px",
           top: "21px",
-          backgroundColor: userDetails?.available ? "green" : "grey",
+          backgroundColor: userDetails?.available ? "lightGreen" : "red",
         }}
       ></div>
-      U_{user_img[1]}
+      {userName?.[0]?.[0]}
+      {userName?.[1]?.[0]}
     </div>
   );
 };
