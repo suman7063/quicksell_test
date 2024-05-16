@@ -21,10 +21,6 @@ const Card = ({
     order: string;
   };
 }) => {
-  let modifyStatus = status;
-  if (status === "In progress") {
-    modifyStatus = "inProgress";
-  }
   return (
     <div className="container">
       <div className="wrap-id-avtar">
@@ -35,7 +31,7 @@ const Card = ({
       </div>
       <div className="wrap-title-status" style={{ alignItems: "baseline" }}>
         {selectedFilter.grouped !== "byStatus" && (
-          <StatusIcon status={modifyStatus} />
+          <StatusIcon status={status} />
         )}
         <p className="title">{title}</p>
       </div>
