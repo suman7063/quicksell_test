@@ -24,18 +24,23 @@ interface ModifiedData {
   [key: string]: Ticket[];
 }
 const DashBoard = () => {
-  const [selectedFilter, setSelectedFilter] = useState<SelectedFilter>({
-    grouped: "byStatus" as "byStatus" | "byUser" | "byPriority",
-    order: "priority" as "priority" | "title",
-  });
+  const getInitialFilter = () => {
+    const savedFilter = localStorage.getItem("selectedFilter");
+    return savedFilter
+      ? JSON.parse(savedFilter)
+      : { grouped: "byStatus", order: "priority" };
+  };
+  const [selectedFilter, setSelectedFilter] =
+    useState<SelectedFilter>(getInitialFilter);
   const [display, setDisplay] = useState(false);
   const [list, setList] = useState<Ticket[]>([]);
   const displayRef = useRef<any>(null);
   const handleSelect = (value: string, type: string) => {
-    setSelectedFilter((prevFilter) => ({
-      ...prevFilter,
-      [type]: value,
-    }));
+    setSelectedFilter((prevFilter) => {
+      const newFilter = { ...prevFilter, [type]: value };
+      localStorage.setItem("selectedFilter", JSON.stringify(newFilter));
+      return newFilter;
+    });
   };
   const handleClickOutside = (e: any) => {
     if (!displayRef?.current?.contains(e?.target)) {
