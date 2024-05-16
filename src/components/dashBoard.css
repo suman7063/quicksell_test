@@ -5,6 +5,8 @@
     padding: 16px 2%;
     position: relative;
     margin-bottom: 16px;
+    position: fixed;
+    z-index: 110;
 }
 
 .section{
@@ -12,6 +14,8 @@
   max-width: 100%;
   overflow-x: scroll;
   box-sizing: border-box;
+  position: relative;
+  top: 70px;
 }
 
 .display{

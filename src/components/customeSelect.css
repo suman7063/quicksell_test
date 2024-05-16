@@ -29,6 +29,7 @@ text-align: left;
     list-style: none;
     width: 100%;
     z-index: 1;
+    padding: 10px 0px;
   }
   
   .options li {
