@@ -34,7 +34,6 @@ export const HeaderTitle = ({
     return (
       <div className="col-header">
         <div style={{ display: "flex" }}>
-          {/* <StatusIcon status={value} /> */}
           <PriorityIcon
             priority={value as "0" | "1" | "4" | "3" | "2"}
             noBorder
