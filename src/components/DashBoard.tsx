@@ -1,12 +1,17 @@
-import React, { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef } from "react";
+import Card from "./card";
+import { HeaderTitle } from "./helper";
+import CustomSelect from "./CustomSelect";
+import {
+  defaultPriorityData,
+  defaultStatusData,
+  groupingOptions,
+  orderingOptions,
+} from "./types";
+
+import "./dashBoard.css";
 import Display from "../assets/icons_FEtask/Display.svg";
 import down from "../assets/icons_FEtask/down.svg";
-import Card from "./card";
-import "./dashBoard.css";
-import CustomSelect from "./CustomSelect";
-import { groupingOptions, orderingOptions } from "./utils";
-import { defaultPriorityData, defaultStatusData } from "./types";
-import { HeaderTitle } from "./helper";
 interface Ticket {
   id: string;
   title: string;
@@ -30,11 +35,14 @@ const DashBoard = () => {
       ? JSON.parse(savedFilter)
       : { grouped: "byStatus", order: "priority" };
   };
+
+  const displayRef = useRef<any>(null);
+  const [modifiedData, setModifiedData] = useState<ModifiedData>({});
   const [selectedFilter, setSelectedFilter] =
     useState<SelectedFilter>(getInitialFilter);
   const [display, setDisplay] = useState(false);
   const [list, setList] = useState<Ticket[]>([]);
-  const displayRef = useRef<any>(null);
+
   const handleSelect = (value: string, type: string) => {
     setSelectedFilter((prevFilter) => {
       const newFilter = { ...prevFilter, [type]: value };
@@ -42,17 +50,14 @@ const DashBoard = () => {
       return newFilter;
     });
   };
+
+  //To close the box if clicked outside
   const handleClickOutside = (e: any) => {
     if (!displayRef?.current?.contains(e?.target)) {
       setDisplay(false);
     }
   };
-  const [modifiedData, setModifiedData] = useState<ModifiedData>({});
 
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
-  });
   const fetchList = async () => {
     await fetch("https://api.quicksell.co/v1/internal/frontend-assignment")
       .then((data) => data.json())
@@ -73,13 +78,25 @@ const DashBoard = () => {
   }, []);
 
   useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
+  // To update the UI based on the selected values
+  useEffect(() => {
     if (list.length < 0) {
       return;
     }
     let modifiedObject: ModifiedData = {};
+
+    //Step -1 grouping
     if (selectedFilter.grouped === "byStatus") {
       modifiedObject = { ...defaultStatusData };
       list.forEach((item) => {
+        console.log(modifiedObject[item.status], [
+          ...modifiedObject[item.status],
+          item,
+        ]);
         modifiedObject[item.status] = [...modifiedObject[item.status], item];
       });
     } else if (selectedFilter.grouped === "byUser") {
@@ -100,17 +117,21 @@ const DashBoard = () => {
       });
     }
 
+    //Step-2 ordering
     Object.keys(modifiedObject).forEach((item) => {
       if (selectedFilter.order === "priority") {
         modifiedObject[item].sort((a: any, b: any) => b.priority - a.priority);
       }
       if (selectedFilter.order === "title") {
-        modifiedObject[item].sort((a, b) => a.title.localeCompare(b.title));
+        modifiedObject[item].sort((a, b) =>
+          a.title > b.title ? 1 : b.title > a.title ? -1 : 0
+        );
       }
     });
 
     setModifiedData(modifiedObject);
   }, [selectedFilter, list]);
+
   return (
     <>
       <header className="header">

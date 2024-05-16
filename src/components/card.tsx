@@ -1,6 +1,5 @@
-import React from "react";
 import "./card.css";
-import { StatusIcon, UserIcon, PriorityIcon } from "./utils";
+import { PriorityIcon, StatusIcon, UserIcon } from "./helper";
 const Card = ({
   id,
   title,
