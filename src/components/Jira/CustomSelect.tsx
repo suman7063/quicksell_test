@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from "react";
 import "./customeSelect.css";
 
-import down from "../assets/icons_FEtask/down.svg";
+import down from "../../assets/icons_FEtask/down.svg";
 
 const CustomSelect = ({
   options,

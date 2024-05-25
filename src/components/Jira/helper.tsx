@@ -1,7 +1,7 @@
 import "./helper.css";
 
-import add from "../assets/icons_FEtask/add.svg";
-import menu from "../assets/icons_FEtask/3 dot menu.svg";
+import add from "../../assets/icons_FEtask/add.svg";
+import menu from "../../assets/icons_FEtask/3 dot menu.svg";
 
 import {
   PriorityData,

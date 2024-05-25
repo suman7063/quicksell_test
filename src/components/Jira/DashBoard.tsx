@@ -10,8 +10,8 @@ import {
 } from "./types";
 
 import "./dashBoard.css";
-import Display from "../assets/icons_FEtask/Display.svg";
-import down from "../assets/icons_FEtask/down.svg";
+import Display from "../../assets/icons_FEtask/Display.svg";
+import down from "../../assets/icons_FEtask/down.svg";
 interface Ticket {
   id: string;
   title: string;
