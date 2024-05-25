@@ -1,5 +1,5 @@
 import "./card.css";
-import { PriorityIcon, StatusIcon, UserIcon } from "./helper";
+import { PriorityIcon, UserIcon, StatusIcon } from "./helper";
 const Card = ({
   id,
   title,

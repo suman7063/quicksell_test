@@ -93,10 +93,6 @@ const DashBoard = () => {
     if (selectedFilter.grouped === "byStatus") {
       modifiedObject = { ...defaultStatusData };
       list.forEach((item) => {
-        console.log(modifiedObject[item.status], [
-          ...modifiedObject[item.status],
-          item,
-        ]);
         modifiedObject[item.status] = [...modifiedObject[item.status], item];
       });
     } else if (selectedFilter.grouped === "byUser") {
